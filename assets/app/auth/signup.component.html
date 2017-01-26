@@ -32,6 +32,11 @@
           id="password"
           formControlName="password">
     </div>
-    <button type="submit" class="btn btn-primary" name="button">Submit</button>
+    <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!myForm.valid"
+        name="button">Submit
+    </button>
   </form>
 </div>
