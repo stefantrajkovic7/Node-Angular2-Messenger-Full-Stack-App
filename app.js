@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 
 var appRoutes = require('./routes/app');
 var messageRoutes = require('./routes/messages');
-var appRoutes = require('./routes/app');
+var userRoutes = require('./routes/user');
 
 var app = express();
 mongoose.connect('localhost:27017/node-angular');
@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cross-Origin Access
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
@@ -34,6 +33,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/message', messageRoutes);
+app.use('/user', userRoutes);
 app.use('/', appRoutes);
 
 // catch 404 and forward to error handler
