@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { AuthService } from './auth.service';
-import { User } from './user.model';
+import { User } from "./user.model";
+import { AuthService } from "./auth.service";
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html'
+    selector: 'app-signin',
+    templateUrl: './signin.component.html'
 })
+export class SigninComponent {
+    myForm: FormGroup;
 
-export class SigninComponent implements OnInit {
-  myForm: FormGroup;
+    constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService, private router: Router) {}
-
-  onSubmit() {
+    onSubmit() {
         const user = new User(this.myForm.value.email, this.myForm.value.password);
         this.authService.signin(user)
             .subscribe(
@@ -29,13 +28,13 @@ export class SigninComponent implements OnInit {
         this.myForm.reset();
     }
 
-  ngOnInit () {
-    this.myForm = new FormGroup({
-      email: new FormControl(null, [
-        Validators.required,
-        Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-      ]),
-      password: new FormControl(null, Validators.required)
-    });
-  }
+    ngOnInit() {
+        this.myForm = new FormGroup({
+            email: new FormControl(null, [
+                Validators.required,
+                Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+            ]),
+            password: new FormControl(null, Validators.required)
+        });
+    }
 }
